@@ -4,16 +4,23 @@
   vars:
     login_host: db.mydaws.online
   tasks:
-  - name: install MYSQL server
+  - name: install MySQL server
     ansible.builtin.dnf:
       name: mysql-server
       state: latest
       
-  - name: start and enable Mysql server
+  - name: start and enable MySQL server
     ansible.builtin.service:
       name: mysqld
       state: started
-      enabled: yes    
+      enabled: yes 
+
+  - name: install python mysql dependencies
+    ansible.builtin.pip:
+      name:
+      - PyMySQL
+      - cryptography
+      executable: pip3.9       
 
   - name: check DB connection
     community.mysql.mysql_info:
